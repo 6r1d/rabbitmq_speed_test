@@ -1,0 +1,37 @@
+version: "3.2"
+
+services:
+
+  rabbitmq_inst:
+    image: rabbitmq:3.10.0-rc.3-management-alpine
+    hostname: 'rabbitmq_inst'
+    environment:
+      RABBITMQ_DEFAULT_USER: 'rabbitmq'
+      RABBITMQ_DEFAULT_PASS: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    # USELESS FOR TESTS
+    # volumes:
+        # - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+  injector:
+    container_name: 'rmq_test_injector'
+    depends_on:
+      - rabbitmq_inst
+    build:
+      context: "./injector"
+    command: ["python", "/opt/injector/main.py"]
+    volumes:
+      - ./injector/main.py:/opt/injector/main.py
+
+  executor:
+    container_name: 'rmq_test_executor'
+    depends_on:
+      - rabbitmq_inst
+    build:
+      context: "./executor"
+    command: ["python", "/opt/executor/main.py"]
+    volumes:
+      - ./executor/main.py:/opt/executor/main.py
