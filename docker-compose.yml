@@ -17,7 +17,6 @@ services:
         # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
   injector:
-    container_name: 'rmq_test_injector'
     depends_on:
       - rabbitmq_inst
     build:
@@ -27,7 +26,6 @@ services:
       - ./injector/main.py:/opt/injector/main.py
 
   executor:
-    container_name: 'rmq_test_executor'
     depends_on:
       - rabbitmq_inst
     build:
