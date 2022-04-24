@@ -11,3 +11,14 @@ Delay is set in `injector/main.py`.
 | `0.0005`       | `1,341/s`           |
 | `0.0001`       | `3,252/s`           |
 | `0.00001`      | `5,270/s`           |
+
+## Usage
+
+It is just a personal experiment to see how many "sentences" could pass through RabbitMQ with default settings and library.
+The random sentences are currently being generated using the Hunspell dictionary in `injector`'s [`main.py`](./injector/main.py) file.
+
+## Links
+
+* [Pika](https://pika.readthedocs.io/en/stable/index.html) - a library I tested here
+* [aio-Pika](https://aio-pika.readthedocs.io/) - a library to test later to understand AIO performance differences
+* X-TEAM: [How to set up RabbitMQ with Docker compose](https://x-team.com/blog/set-up-rabbitmq-with-docker-compose/) - a detailed tutorial on Compose and RabbitMQ
