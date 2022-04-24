@@ -17,6 +17,9 @@ Delay is set in `injector/main.py`.
 It is just a personal experiment to see how many "sentences" could pass through RabbitMQ with default settings and library.
 The random sentences are currently being generated using the Hunspell dictionary in `injector`'s [`main.py`](./injector/main.py) file.
 
+To check current performance, run `docker-compose up` and have a look at the [RabbitMQ management panel](http://127.0.0.1:15672/).
+`Publish` and `Deliver` message rates tell about the current performance.
+
 ## Links
 
 * [Pika](https://pika.readthedocs.io/en/stable/index.html) - a library I tested here
