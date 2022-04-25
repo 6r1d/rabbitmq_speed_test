@@ -16,20 +16,25 @@ services:
         # - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
-  injector:
+  generator:
     depends_on:
       - rabbitmq_inst
+    environment:
+      START_WAIT_S: 5
+      MSG_DELAY_S: 0.00001
     build:
-      context: "./injector"
-    command: ["python", "/opt/injector/main.py"]
+      context: "./generator"
+    command: ["python", "/opt/generator/main.py"]
     volumes:
-      - ./injector/main.py:/opt/injector/main.py
+      - ./generator/main.py:/opt/generator/main.py
 
-  executor:
+  receiver:
     depends_on:
       - rabbitmq_inst
+    environment:
+      START_WAIT_S: 5
     build:
-      context: "./executor"
-    command: ["python", "/opt/executor/main.py"]
+      context: "./receiver"
+    command: ["python", "/opt/receiver/main.py"]
     volumes:
-      - ./executor/main.py:/opt/executor/main.py
+      - ./receiver/main.py:/opt/receiver/main.py

@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
 import pika
+from os import environ
 from time import sleep
 from string import ascii_letters
 from random import choice, randint
 
-START_WAIT = 4
-DELAY = 0.00001
+START_WAIT_S = float(environ.get('START_WAIT_S', 5))
+DELAY_S = float(environ.get('MSG_DELAY_S', 1))
 DICT_PATH = '/usr/share/hunspell/en_GB-large.dic'
 
 def get_dictionary():
@@ -34,7 +35,6 @@ def generate_paragraph(normal, capitalized):
     return ' '.join(sentences)
 
 def main():
-    sleep(START_WAIT)
     normal, capitalized = get_dictionary()
 
     connection = pika.BlockingConnection(
@@ -48,7 +48,7 @@ def main():
     channel = connection.channel()
 
     channel.queue_declare(queue='hello')
-    print(' [*] Starting injector. To exit press CTRL+C\n')
+    print(' [*] Starting the message generator. To exit press CTRL+C\n')
 
     while True:
         paragraph = generate_paragraph(normal, capitalized)
@@ -56,12 +56,14 @@ def main():
             exchange='', routing_key='hello', body=paragraph
         )
         # print(f' [x] Sent {len(paragraph)}.')
-        sleep(DELAY)
+        if DELAY_S:
+            sleep(DELAY_S)
 
     connection.close()
 
 if __name__ == '__main__':
     try:
+        sleep(START_WAIT_S)
         main()
     except KeyboardInterrupt:
         print('Interrupted')

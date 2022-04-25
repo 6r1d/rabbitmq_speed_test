@@ -3,11 +3,9 @@
 import pika, sys, os
 from time import sleep
 
-START_WAIT = 4
+START_WAIT_S = float(os.environ.get('START_WAIT_S', 5))
 
 def main():
-    sleep(START_WAIT)
-
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             'rabbitmq_inst',
@@ -30,6 +28,7 @@ def main():
 
 if __name__ == '__main__':
     try:
+        sleep(START_WAIT_S)
         main()
     except KeyboardInterrupt:
         print('Interrupted')

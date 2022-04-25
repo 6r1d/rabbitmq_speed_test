@@ -3,7 +3,7 @@
 A tiny informal experiment I did to check how many requests I could send through RabbitMQ synchronously,
 without much effort.
 
-Delay is set in `injector/main.py`.
+Delay is set in `generator/main.py`.
 
 | Delay, seconds | Requests per second |
 |----------------|---------------------|
@@ -16,7 +16,12 @@ Delay is set in `injector/main.py`.
 ## Usage
 
 It is just a personal experiment to see how many "sentences" could pass through RabbitMQ with default settings and library.
-The random sentences are currently being generated using the Hunspell dictionary in `injector`'s [`main.py`](./injector/main.py) file.
+The random sentences are currently being generated using the Hunspell dictionary in `generator`'s [`main.py`](./generator/main.py) file.
+
+You can configure both receiver and generator starting delays in [`docker-compose.yml`](./docker-compose.yml) by changing both `START_WAIT_S` parameters in `environment` service parameter.
+
+The `generator` service has a parameter that defines the delay between sending messages.
+It can be zero and is called `MSG_DELAY_S`.
 
 To check current performance, run `docker-compose up` and have a look at the [RabbitMQ management panel](http://127.0.0.1:15672/).
 `Publish` and `Deliver` message rates tell about the current performance.
@@ -25,7 +30,7 @@ To check current performance, run `docker-compose up` and have a look at the [Ra
 
 #### Network issues
 
-I hit some weird network issue when both injector and executor instances were unable to connect.
+I hit some weird network issue when both generator and receiver instances were unable to connect.
 In my case, I needed to restart Docker with `doas sv restart docker`.
 For `systemd`-based distros, it may be something like `sudo systemctl restart docker`.
 

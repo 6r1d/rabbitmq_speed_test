@@ -3,7 +3,5 @@ FROM python:3.11.0a7-alpine3.15
 ENV PYTHONUNBUFFERED 1
 
 RUN python -m pip install pika --upgrade
-RUN mkdir -p /opt/injector
-WORKDIR /opt/injector
-
-RUN apk add hunspell-en
+RUN mkdir -p /opt/receiver
+WORKDIR /opt/receiver
