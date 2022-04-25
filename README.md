@@ -5,7 +5,9 @@ without much effort.
 
 **Do not view current results as a reliable data.**
 My goal was to see how many messages pass with default options and I did not tinker with config,
-so the conditions are far from perfect, but it is a good starting point for tinkering.
+and the [testing conditions are currently wrong](https://github.com/mosquito/aio-pika/issues/460#issuecomment-1108919519).
+At the very least, it was a good starting point for tinkering.
+I will need to either enable publisher confirmations or turn of confirmations in `pika`.
 
 ## Current results
 
