@@ -3,6 +3,11 @@ This file contains a class to generate random paragraphs
 using Hunspell dicts.
 
 Confused? Think Lorem Ipsum without Latin. Or with some surprise Latin.
+
+Installation of the dicts is different for different distros:
+* Alpine: apk add hunspell-en
+* Arch / Artix: doas pacman -S hunspell-en_gb
+* Debian: apt-get install hunspell-en-gb -y
 """
 
 from string import ascii_letters
