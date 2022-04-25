@@ -35,7 +35,6 @@ def main():
         channel.basic_publish(
             exchange='', routing_key='hello', body=paragraph
         )
-        # print(f' [x] Sent {len(paragraph)}.')
         if DELAY_S:
             sleep(DELAY_S)
 

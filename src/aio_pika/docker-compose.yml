@@ -1,0 +1,45 @@
+version: "3.2"
+
+services:
+
+  rabbitmq_inst:
+    image: rabbitmq:3.10.0-rc.3-management-alpine
+    hostname: 'rabbitmq_inst'
+    environment:
+      RABBITMQ_DEFAULT_USER: 'rabbitmq'
+      RABBITMQ_DEFAULT_PASS: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    # USELESS FOR TESTS
+    # volumes:
+        # - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+  generator:
+    depends_on:
+      - rabbitmq_inst
+    environment:
+      START_WAIT_S: 5
+      MSG_DELAY_S: 0.0
+      MIN_SENTENCE_LENGTH: 4
+      MAX_SENTENCE_LENGTH: 16
+      MIN_SENTENCES: 5
+      MAX_SENTENCES: 10
+    build:
+      context: "./generator"
+    command: ["python", "/opt/generator/main.py"]
+    volumes:
+      - ./generator/main.py:/opt/generator/main.py
+      - ../common/hs_gen:/opt/generator/hs_gen
+
+  receiver:
+    depends_on:
+      - rabbitmq_inst
+    environment:
+      START_WAIT_S: 5
+    build:
+      context: "./receiver"
+    command: ["python", "/opt/receiver/main.py"]
+    volumes:
+      - ./receiver/main.py:/opt/receiver/main.py

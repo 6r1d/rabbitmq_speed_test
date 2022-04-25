@@ -3,23 +3,26 @@
 A tiny informal experiment I did to check how many random paragraphs of tezt I could send through RabbitMQ
 without much effort. Currently synchronously.
 
-Delay is set in `generator/main.py`.
+| Delay, seconds | Library  | Generators | Requests per second |
+|----------------|----------|------------|---------------------|
+| `0.0`          | pika     | 1          | `11,000/s`          |
+| `0.0`          | aio-pika | 1          | `2,492/s`           |
+| `0.01`         | pika     | 1          | `95/s`              |
+| `0.0005`       | pika     | 1          | `1,341/s`           |
+| `0.0001`       | pika     | 1          | `3,252/s`           |
+| `0.00001`      | pika     | 1          | `5,270/s`           |
+| `0.00001`      | pika     | 10         | `21,858/s`          |
 
-| Delay, seconds | Generators            | Requests per second |
-|----------------|-----------------------|---------------------|
-| `0.01`         | 1                     | `95/s`              |
-| `0.0005`       | 1                     | `1,341/s`           |
-| `0.0001`       | 1                     | `3,252/s`           |
-| `0.00001`      | 1                     | `5,270/s`           |
-| `0.00001`      | 10                    | `21,858/s`          |
-| `0.0    `      | 1                     | `11,000/s`          |
+Note: `MSG_DELAY_S` is equal to "Delay, seconds" in the table above.
 
 ## Usage
 
-It is just a personal experiment to see how many "sentences" could pass through RabbitMQ with default settings and library.
-The random sentences are currently being generated using the Hunspell dictionary in `generator`'s [`main.py`](./generator/main.py) file.
+Both `src/pika` and `src/aio_pika` directories contain a personal experiment to see how many randomized "sentences" will pass through RabbitMQ with default settings and library.
+The random sentences are currently being generated using the Hunspell dictionary in `generator`'s [`main.py`](./src/common/hs_gen/gen.py) file.
 
-You can configure both receiver and generator starting delays in [`docker-compose.yml`](./docker-compose.yml) by changing both `START_WAIT_S` parameters in `environment` service parameter.
+You can configure both receiver and generator starting delays in `docker-compose.yml` files
+for [pika](./src/pika/docker-compose.yml) and [aio-pika](./src/aio_pika/docker-compose.yml)
+by changing `START_WAIT_S` parameters in `environment`.
 
 The `generator` service has a parameter that defines the delay between sending messages.
 It can be zero and is called `MSG_DELAY_S`.
@@ -41,6 +44,12 @@ For `systemd`-based distros, it may be something like `sudo systemctl restart do
 
 ## Links
 
+### Libraries
+
 * [Pika](https://pika.readthedocs.io/en/stable/index.html) - a library I tested here
 * [aio-Pika](https://aio-pika.readthedocs.io/) - a library to test later to understand AIO performance differences
+
+### Tutorials
+
 * X-TEAM: [How to set up RabbitMQ with Docker compose](https://x-team.com/blog/set-up-rabbitmq-with-docker-compose/) - a detailed tutorial on Compose and RabbitMQ
+* [aio-Pika intro](https://aio-pika.readthedocs.io/en/latest/rabbitmq-tutorial/1-introduction.html)
