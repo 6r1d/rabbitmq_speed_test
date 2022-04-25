@@ -28,7 +28,8 @@ Note: `MSG_DELAY_S` is equal to "Delay, seconds" in the table above.
 ## Usage
 
 Both `src/pika` and `src/aio_pika` directories contain a personal experiment to see how many randomized "sentences" will pass through RabbitMQ with default settings and library.
-The random sentences are currently being generated using the Hunspell dictionary in `generator`'s [`main.py`](./src/common/hs_gen/gen.py) file.
+The random sentences are currently being generated using
+the Hunspell dictionary in `generator`'s [`gen.py`](./src/common/hs_gen/gen.py) file.
 
 You can configure both receiver and generator starting delays in `docker-compose.yml` files
 for [pika](./src/pika/docker-compose.yml) and [aio-pika](./src/aio_pika/docker-compose.yml)
@@ -57,7 +58,7 @@ For `systemd`-based distros, it may be something like `sudo systemctl restart do
 ### Libraries
 
 * [Pika](https://pika.readthedocs.io/en/stable/index.html) - the default library for Python
-* [aiormq](https://github.com/mosquito/aiormq) - the library for Python + asyncio
+* [aiormq](https://github.com/mosquito/aiormq) - the library for Python + asyncio, **untested**
 * [aio-Pika](https://aio-pika.readthedocs.io/) - the library for Python + asyncio which is intended to [write less code](https://github.com/mosquito/aio-pika/issues/382)
 
 ### Tutorials
