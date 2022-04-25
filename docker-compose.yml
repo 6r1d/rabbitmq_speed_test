@@ -22,11 +22,16 @@ services:
     environment:
       START_WAIT_S: 5
       MSG_DELAY_S: 0.00001
+      MIN_SENTENCE_LENGTH: 4
+      MAX_SENTENCE_LENGTH: 16
+      MIN_SENTENCES: 5
+      MAX_SENTENCES: 10
     build:
       context: "./generator"
     command: ["python", "/opt/generator/main.py"]
     volumes:
       - ./generator/main.py:/opt/generator/main.py
+      - ./generator/hs_gen:/opt/generator/hs_gen
 
   receiver:
     depends_on:
