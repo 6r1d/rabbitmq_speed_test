@@ -1,7 +1,15 @@
 # RabbitMQ test (2022)
 
-A tiny informal experiment I did to check how many random paragraphs of tezt I could send through RabbitMQ
-without much effort. Currently synchronously.
+A tiny informal experiment I did to check how many random paragraphs I could send through RabbitMQ
+without much effort.
+
+**Do not view current results as a reliable data.**
+My goal was to see how many messages pass with default options and I did not tinker with config,
+so the conditions are far from perfect, but it is a good starting point for tinkering.
+
+## Current results
+
+Hardware: AMD Ryzen 5 4500U, 16 Gb RAM.
 
 | Delay, seconds | Library  | Generators | Requests per second   |
 |----------------|----------|------------|-----------------------|
@@ -32,7 +40,7 @@ It can be zero and is called `MSG_DELAY_S`.
 To check current performance, run `docker-compose up` and have a look at the [RabbitMQ management panel](http://127.0.0.1:15672/).
 `Publish` and `Deliver` message rates tell about the current performance.
 
-You can enable multiple generator instances and see the dynamics with `docker-compose up --scale generator=10`.
+You can enable multiple generator instances to see the changes with `docker-compose up --scale generator=10`.
 
 ![Multi-generator test result](./multigen_result.png)
 
@@ -48,8 +56,9 @@ For `systemd`-based distros, it may be something like `sudo systemctl restart do
 
 ### Libraries
 
-* [Pika](https://pika.readthedocs.io/en/stable/index.html) - a library I tested here
-* [aio-Pika](https://aio-pika.readthedocs.io/) - a library to test later to understand AIO performance differences
+* [Pika](https://pika.readthedocs.io/en/stable/index.html) - the default library for Python
+* [aiormq](https://github.com/mosquito/aiormq) - the library for Python + asyncio
+* [aio-Pika](https://aio-pika.readthedocs.io/) - the library for Python + asyncio which is intended to [write less code](https://github.com/mosquito/aio-pika/issues/382)
 
 ### Tutorials
 
