@@ -3,15 +3,17 @@
 A tiny informal experiment I did to check how many random paragraphs of tezt I could send through RabbitMQ
 without much effort. Currently synchronously.
 
-| Delay, seconds | Library  | Generators | Requests per second |
-|----------------|----------|------------|---------------------|
-| `0.0`          | pika     | 1          | `11,000/s`          |
-| `0.0`          | aio-pika | 1          | `2,492/s`           |
-| `0.01`         | pika     | 1          | `95/s`              |
-| `0.0005`       | pika     | 1          | `1,341/s`           |
-| `0.0001`       | pika     | 1          | `3,252/s`           |
-| `0.00001`      | pika     | 1          | `5,270/s`           |
-| `0.00001`      | pika     | 10         | `21,858/s`          |
+| Delay, seconds | Library  | Generators | Requests per second   |
+|----------------|----------|------------|-----------------------|
+| `0.0`          | pika     | 1          | `11,000/s`            |
+| `0.0`          | aio-pika | 1          | `2,492/s`             |
+| `0.01`         | pika     | 1          | `95/s`                |
+| `0.0005`       | pika     | 1          | `1,341/s`             |
+| `0.0001`       | pika     | 1          | `3,252/s`             |
+| `0.00001`      | pika     | 1          | `5,270/s`             |
+| `0.00001`      | aio-pika | 1          | `720/s` - `632/s`     |
+| `0.00001`      | pika     | 10         | `21,858/s`            |
+| `0.00001`      | aio-pika | 10         | `3,800/s` - `4,080/s` |
 
 Note: `MSG_DELAY_S` is equal to "Delay, seconds" in the table above.
 
