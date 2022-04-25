@@ -31,7 +31,7 @@ services:
     command: ["python", "/opt/generator/main.py"]
     volumes:
       - ./generator/main.py:/opt/generator/main.py
-      - ./generator/hs_gen:/opt/generator/hs_gen
+      - ./common/hs_gen:/opt/generator/hs_gen
 
   receiver:
     depends_on:

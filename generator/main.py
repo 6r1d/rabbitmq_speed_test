@@ -5,7 +5,6 @@ from os import environ
 from time import sleep
 from hs_gen.gen import ParagraphGenerator
 
-START_WAIT_S = float(environ.get('START_WAIT_S', 5))
 DELAY_S = float(environ.get('MSG_DELAY_S', 1))
 
 def main():
@@ -42,9 +41,17 @@ def main():
 
     connection.close()
 
+def initial_wait():
+    """
+    Sleep for the amount of seconds taken from the environment variables
+    """
+    sleep(
+        float(environ.get('START_WAIT_S', 5))
+    )
+
 if __name__ == '__main__':
     try:
-        sleep(START_WAIT_S)
+        initial_wait()
         main()
     except KeyboardInterrupt:
         print('Interrupted')
