@@ -13,6 +13,9 @@ I will need to either enable publisher confirmations or turn of confirmations in
 
 Hardware: AMD Ryzen 5 4500U, 16 Gb RAM.
 
+TO-DO: consider delivery confirmation
+(issue [3](https://github.com/6r1d/rabbitmq_speed_test/issues/3), [4](https://github.com/6r1d/rabbitmq_speed_test/issues/4)).
+
 | Delay, seconds | Library  | Generators | Requests per second   |
 |----------------|----------|------------|-----------------------|
 | `0.0`          | pika     | 1          | `11,000/s`            |
