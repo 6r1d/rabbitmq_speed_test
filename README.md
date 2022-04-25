@@ -21,6 +21,14 @@ The random sentences are currently being generated using the Hunspell dictionary
 To check current performance, run `docker-compose up` and have a look at the [RabbitMQ management panel](http://127.0.0.1:15672/).
 `Publish` and `Deliver` message rates tell about the current performance.
 
+### Notes
+
+#### Network issues
+
+I hit some weird network issue when both injector and executor instances were unable to connect.
+In my case, I needed to restart Docker with `doas sv restart docker`.
+For `systemd`-based distros, it may be something like `sudo systemctl restart docker`.
+
 ## Links
 
 * [Pika](https://pika.readthedocs.io/en/stable/index.html) - a library I tested here
