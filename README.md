@@ -1,17 +1,18 @@
 # RabbitMQ test (2022)
 
-A tiny informal experiment I did to check how many requests I could send through RabbitMQ synchronously,
-without much effort.
+A tiny informal experiment I did to check how many random paragraphs of tezt I could send through RabbitMQ
+without much effort. Currently synchronously.
 
 Delay is set in `generator/main.py`.
 
-| Delay, seconds | Requests per second |
-|----------------|---------------------|
-| `0.01`         | `95/s`              |
-| `0.0005`       | `1,341/s`           |
-| `0.0001`       | `3,252/s`           |
-| `0.00001`      | `5,270/s`           |
-| `0.0    `      | `11,000/s`          |
+| Delay, seconds | Generators            | Requests per second |
+|----------------|-----------------------|---------------------|
+| `0.01`         | 1                     | `95/s`              |
+| `0.0005`       | 1                     | `1,341/s`           |
+| `0.0001`       | 1                     | `3,252/s`           |
+| `0.00001`      | 1                     | `5,270/s`           |
+| `0.00001`      | 10                    | `21,858/s`          |
+| `0.0    `      | 1                     | `11,000/s`          |
 
 ## Usage
 
@@ -25,6 +26,10 @@ It can be zero and is called `MSG_DELAY_S`.
 
 To check current performance, run `docker-compose up` and have a look at the [RabbitMQ management panel](http://127.0.0.1:15672/).
 `Publish` and `Deliver` message rates tell about the current performance.
+
+You can enable multiple generator instances and see the dynamics with `docker-compose up --scale generator=10`.
+
+![Multi-generator test result](./multigen_result.png)
 
 ### Notes
 
